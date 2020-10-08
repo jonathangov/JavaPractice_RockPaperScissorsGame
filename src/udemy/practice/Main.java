@@ -17,7 +17,6 @@ public class Main {
 
         // goals after phase 1: build a UI, use Rest Template, integrate Springboot, allow for 1 user to play computer, add in React, continue to refactor
 
-
         if(playerOneChoice == playerTwoChoice) {
             System.out.println("Players Tied");
 //            playOneMatch();
