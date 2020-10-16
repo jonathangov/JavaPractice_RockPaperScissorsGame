@@ -20,39 +20,49 @@ public class Main {
     //          add in React,
     //          continue to refactor,
 
+    // TODO: move the name queston and getter from the match level so that it doesnt ask everytime a new game is triggered, just the once at the very beginning
+
     public static void main(String[] args) {
         playOneMatch();
 
         }
 
     public static void playOneMatch() {
+        Player playerOne = new Player();
+        Player compPlayer = new Player();
+        compPlayer.setPlayerName("Computer");
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Player, please choice Rock, Paper or Scissors: ");
+        System.out.println("Welcome! Please enter your name below: ");
+        String nameInput = scanner.nextLine();
+        playerOne.setPlayerName(nameInput);
+
+        System.out.println(playerOne.getPlayerName() + ", please choice Rock, Paper or Scissors: ");
         String playerChoice = scanner.nextLine().toUpperCase();
-        String computerChoice = "PAPER";
+        // TODO: randomize the computer's choice
+        compPlayer.setPlayerChoice("PAPER");
         // Print out choices
-        System.out.println("Player has chosen " + playerChoice + " and Computer has chosen " + computerChoice + ".");
+        System.out.println("Player has chosen " + playerChoice + " and Computer has chosen " + compPlayer.getPlayerChoice() + ".");
 
         // Determine who wins the match
-        if (playerChoice.equals(computerChoice)) {
+        if (playerChoice.equals(compPlayer.getPlayerChoice())) {
             System.out.println("Players Tied!");
-        } else if (playerChoice.equals("ROCK") && computerChoice.equals("PAPER")) {
-            System.out.println("Computer WINS with " + computerChoice);
-        } else if (computerChoice.equals("ROCK") && playerChoice.equals("PAPER")) {
-            System.out.println("Player WINS with " + playerChoice);
-        } else if (playerChoice.equals("SCISSORS") && computerChoice.equals("PAPER")) {
-            System.out.println("Player WINS with " + playerChoice);
-        } else if (computerChoice.equals("SCISSORS") && playerChoice.equals("PAPER")) {
-            System.out.println("Computer WINS with " + computerChoice);
-        } else if (playerChoice.equals("ROCK") && computerChoice.equals("SCISSORS")) {
-            System.out.println("Player WINS with " + playerChoice);
-        } else if (computerChoice.equals("ROCK") && playerChoice.equals("SCISSORS")) {
-            System.out.println("Computer WINS with " + computerChoice);
+        } else if (playerChoice.equals("ROCK") && compPlayer.getPlayerChoice().equals("PAPER")) {
+            System.out.println("Computer WINS with " + compPlayer.getPlayerChoice());
+        } else if (compPlayer.getPlayerChoice().equals("ROCK") && playerChoice.equals("PAPER")) {
+            System.out.println(playerOne.getPlayerName() + " WINS with " + playerChoice);
+        } else if (playerChoice.equals("SCISSORS") && compPlayer.getPlayerChoice().equals("PAPER")) {
+            System.out.println(playerOne.getPlayerName() + " WINS with " + playerChoice);
+        } else if (compPlayer.getPlayerChoice().equals("SCISSORS") && playerChoice.equals("PAPER")) {
+            System.out.println("Computer WINS with " + compPlayer.getPlayerChoice());
+        } else if (playerChoice.equals("ROCK") && compPlayer.getPlayerChoice().equals("SCISSORS")) {
+            System.out.println(playerOne.getPlayerName() + " WINS with " + playerChoice);
+        } else if (compPlayer.getPlayerChoice().equals("ROCK") && playerChoice.equals("SCISSORS")) {
+            System.out.println("Computer WINS with " + compPlayer.getPlayerChoice());
         } else {
             System.out.println("Something broke in seeing who wins...");
         }
 
-        //Play again?\
+        //Play again?
         System.out.println("Would you like to play another match? (y/n): ");
         String playAgainResp = scanner.nextLine();
 
