@@ -20,7 +20,7 @@ public class Main {
     //          add in React,
     //          continue to refactor,
 
-    // TODO: move the name queston and getter from the match level so that it doesnt ask everytime a new game is triggered, just the once at the very beginning
+    // TODO: move the name question and getter from the match level so that it doesnt ask everytime a new game is triggered, just the once at the very beginning
 
     public static void main(String[] args) {
         playOneMatch();
@@ -36,42 +36,64 @@ public class Main {
         String nameInput = scanner.nextLine();
         playerOne.setPlayerName(nameInput);
 
-        System.out.println(playerOne.getPlayerName() + ", please choice Rock, Paper or Scissors: ");
-        String playerChoice = scanner.nextLine().toUpperCase();
-        // TODO: randomize the computer's choice
-        compPlayer.setPlayerChoice("PAPER");
-        // Print out choices
-        System.out.println("Player has chosen " + playerChoice + " and Computer has chosen " + compPlayer.getPlayerChoice() + ".");
+        // plays a round; should make this it's own method that gets called every time a round is needed
 
-        // Determine who wins the match
-        if (playerChoice.equals(compPlayer.getPlayerChoice())) {
-            System.out.println("Players Tied!");
-        } else if (playerChoice.equals("ROCK") && compPlayer.getPlayerChoice().equals("PAPER")) {
-            System.out.println("Computer WINS with " + compPlayer.getPlayerChoice());
-        } else if (compPlayer.getPlayerChoice().equals("ROCK") && playerChoice.equals("PAPER")) {
-            System.out.println(playerOne.getPlayerName() + " WINS with " + playerChoice);
-        } else if (playerChoice.equals("SCISSORS") && compPlayer.getPlayerChoice().equals("PAPER")) {
-            System.out.println(playerOne.getPlayerName() + " WINS with " + playerChoice);
-        } else if (compPlayer.getPlayerChoice().equals("SCISSORS") && playerChoice.equals("PAPER")) {
-            System.out.println("Computer WINS with " + compPlayer.getPlayerChoice());
-        } else if (playerChoice.equals("ROCK") && compPlayer.getPlayerChoice().equals("SCISSORS")) {
-            System.out.println(playerOne.getPlayerName() + " WINS with " + playerChoice);
-        } else if (compPlayer.getPlayerChoice().equals("ROCK") && playerChoice.equals("SCISSORS")) {
-            System.out.println("Computer WINS with " + compPlayer.getPlayerChoice());
-        } else {
-            System.out.println("Something broke in seeing who wins...");
-        }
+        playRound();
 
         //Play again?
-        System.out.println("Would you like to play another match? (y/n): ");
-        String playAgainResp = scanner.nextLine();
-
-        if (playAgainResp.toLowerCase().equals("y") || playAgainResp.toLowerCase().equals("yes")) {
-            playOneMatch();
-        } else {
-            System.out.println("Game Over: Thanks for playing!");
-        }
+//        System.out.println("Would you like to play another match? (y/n): ");
+//        String playAgainResp = scanner.nextLine();
+//
+//        if (playAgainResp.toLowerCase().equals("y") || playAgainResp.toLowerCase().equals("yes")) {
+//            playOneMatch();
+//        } else {
+//            System.out.println("Game Over: Thanks for playing!");
+//        }
         scanner.close();
     }
+
+    public static void playRound(playerOne, compPlayer) {
+        while(playerOne.matchWins < 3 && compPlayer.matchWins < 3) {
+            System.out.println(playerOne.getPlayerName() + ", please choice Rock, Paper or Scissors: ");
+            String playersChoice = scanner.nextLine().toUpperCase();
+            playerOne.setPlayerChoice(playersChoice);
+            // TODO: randomize the computer's choice
+            compPlayer.setPlayerChoice("PAPER");
+            // Print out choices
+            System.out.println("Player has chosen " + playerOne.playerChoice + " and Computer has chosen " + compPlayer.getPlayerChoice() + ".");
+
+            // Determine who wins the match
+            if (playerOne.playerChoice.equals(compPlayer.getPlayerChoice())) {
+                System.out.println("Players Tied!");
+            } else if (playerOne.playerChoice.equals("ROCK") && compPlayer.getPlayerChoice().equals("PAPER")) {
+                compPlayer.matchWins++;
+                System.out.println("Computer WINS with " + compPlayer.getPlayerChoice());
+            } else if (compPlayer.getPlayerChoice().equals("ROCK") && playerOne.playerChoice.equals("PAPER")) {
+                System.out.println(playerOne.getPlayerName() + " WINS with " + playerOne.playerChoice);
+            } else if (playerOne.playerChoice.equals("SCISSORS") && compPlayer.getPlayerChoice().equals("PAPER")) {
+                System.out.println(playerOne.getPlayerName() + " WINS with " + playerOne.playerChoice);
+            } else if (compPlayer.getPlayerChoice().equals("SCISSORS") && playerOne.playerChoice.equals("PAPER")) {
+                System.out.println("Computer WINS with " + compPlayer.getPlayerChoice());
+            } else if (playerOne.playerChoice.equals("ROCK") && compPlayer.getPlayerChoice().equals("SCISSORS")) {
+                System.out.println(playerOne.getPlayerName() + " WINS with " + playerOne.playerChoice);
+            } else if (compPlayer.getPlayerChoice().equals("ROCK") && playerOne.playerChoice.equals("SCISSORS")) {
+                System.out.println("Computer WINS with " + compPlayer.getPlayerChoice());
+            } else {
+                System.out.println("Something broke in seeing who wins...");
+            }
+
+            System.out.println(playerOne.playerName + "'s score: " + playerOne.matchWins);
+            System.out.println(compPlayer.playerName + "'s score: " + compPlayer.matchWins);
+
+            if(playerOne.matchWins == 3) {
+                playerOne.gameWins++;
+                System.out.println(playerOne.playerName + " has won the round!");
+            } else if (compPlayer.matchWins == 3) {
+                compPlayer.gameWins++;
+                System.out.println(compPlayer.playerName + " has won the round!");
+            }
+        }
+    };
+
 
 }

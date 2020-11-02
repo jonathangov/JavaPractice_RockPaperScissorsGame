@@ -6,11 +6,11 @@ public class Player {
     // work be cool to add something like and object that kept track of how many times each choice was used and/or which choice wins the most often
 
     int matchWins;
-    int matchLoses;
-    int roundWins;
-    int roundLoses;
-    int gameWins;
-    int gameLoses;
+    int matchLoses = 0;
+    int roundWins = 0;
+    int roundLoses = 0;
+    int gameWins = 0;
+    int gameLoses = 0;
 
     public String getPlayerName() {
         return this.playerName;
